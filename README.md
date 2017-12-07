@@ -1,5 +1,5 @@
 # OpenStreetCam-GeoParsing-Tool
-###### ARGO team lead: David Marulli ( david@argolabs.org ) 
+_ARGO team lead: David Marulli ( david@argolabs.org )_
 
 
 ## High-level Description
