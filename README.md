@@ -1,4 +1,7 @@
 # OpenStreetCam-GeoParsing-Tool
+ARGO team lead: David Marulli ( david@argolabs.org ) 
+
+## High-level Description
 Create a tool that, given a city, give can pull each OpenStreetCam (OSM) Track file No. associated with that city.
 
 A preliminary timeline for the project is shown below:
@@ -13,4 +16,9 @@ A preliminary timeline for the project is shown below:
 
 The OSM user interface takes post requests based on lat/lngs and returns nearby-tracks, so defining “city” as points on its street grid may be the most straightforward approach. However, “city” may be defined in whatever way seems technically feasibly (rectangular bounding box, polygon boundary file, etc.)
 
-ARGO team lead: David Marulli ( david@argolabs.org ) 
+### Examples
+#### Form Parameters
+![post request form](./img/post_req_example_form.png?raw=true "Form Parameters")
+
+#### Response
+![post request response](./img/post_req_example_response.png?raw=true "Response")
