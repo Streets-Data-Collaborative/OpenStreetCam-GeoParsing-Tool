@@ -17,7 +17,7 @@ A preliminary timeline for the project is shown below:
 
 The OSM user interface takes post requests based on lat/lngs and returns nearby-tracks, so defining “city” as points on its street grid may be the most straightforward approach. However, “city” may be defined in whatever way seems technically feasible (rectangular bounding box, polygon boundary file, etc.)
 
-### Skills (or interests)
+### Skills (or Interests)
 python data wrangling + web parsing/scraping (e.g. curl, beautifulsoup, urllib2, etc.)
 
 ### Example Screenshots
