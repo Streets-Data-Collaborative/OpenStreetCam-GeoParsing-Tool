@@ -11,7 +11,7 @@ A preliminary timeline for the project is shown below:
 | ------------- | ------------- |
 | Week of 12/22/17 | Kickoff meeting |
 | ...| ... |
-| 1/X/18 | Launch! |
+| 1/22/18 | Launch! |
 
 ## Approach
 
