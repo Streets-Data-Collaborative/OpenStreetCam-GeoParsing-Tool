@@ -5,13 +5,7 @@ _ARGO team lead: David Marulli ( david@argolabs.org )_
 ## High-level Description
 Create an open-source tool that, given a city, give can pull each OpenStreetCam (OSM) Track file No. associated with that city. Building on existing open-source work (references to come), this will permit the creation ride quality maps of any location with OSM tracks. For a demo, see [here](https://demo.streetsdatacollaborative.org/commute/).
 
-A preliminary timeline for the project is shown below:
-
-| Original Timeline | Deliverable |
-| ------------- | ------------- |
-| Week of 12/22/17 | Kickoff meeting |
-| ...| ... |
-| 1/22/18 | Launch! |
+Plan for a launch 1/22/18!
 
 ## Approach
 
