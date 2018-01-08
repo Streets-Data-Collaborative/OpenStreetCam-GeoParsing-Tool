@@ -17,10 +17,12 @@ def getNearbytracks(lat, lng):
         
     # extracting data in json format
     extract = r.json()
-    sequences = extract['osv']['sequences']
-        
-    # store sequence id of each nearby track in a list
-    for i in range(len(sequences)):
-        sequence_ids.append(sequences[i]['sequence_id'])
-            
+    
+    # if nearby tracks exist, store them in a list
+    try:
+        sequences = extract['osv']['sequences'] # indexes post request json with nearby tracks
+        for i in range(len(sequences)): 
+            sequence_ids.append(sequences[i]['sequence_id'])
+    except:
+        pass
     return sequence_ids
