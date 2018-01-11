@@ -15,18 +15,24 @@ def getNearbytracks(lat, lng):
     data = {'lat': lat, 'lng': lng, 'distance': '5.0', 'myTracks': 'false', 'filterUserNames': 'false'}
     r = requests.post(url=url, data=data)
     extract = r.json()
-    for i in range(len(extract)):
-        try:
-            sequence_ids.append(extract['osv']['sequences'][i]['sequence_id'])
-        except:
-            pass
+    try:
+        sequences = extract['osv']['sequences']
+        for i in range(len(sequences)):
+            sequence_ids.append(sequences[i]['sequence_id'])
+    except TypeError:
+        pass
     return sequence_ids
 
 def getAlltracks(city, state, country):
+    '''
+    This function takes a city's name as an input, and 
+    returns a list of all `sequence_id`s from that city.
+    city: str
+    state: str
+    country: str
+    '''
     city_sids = set()
     for lat, lng in getIntersection(city, state, country):
-        lat = str(lat)
-        lng = str(lng)
         tempTracks = getNearbytracks(lat, lng)
         for x in tempTracks: city_sids.add(x)
     return city_sids
