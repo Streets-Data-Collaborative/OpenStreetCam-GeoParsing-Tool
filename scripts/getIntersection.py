@@ -1,6 +1,8 @@
+import osmnx as ox
+
 def getIntersection(city, state, country):
     '''
-    Takes a city, state, and country as strings
+    This function takes a city, state, and country as inputs
     and returns a list of lat/long pairs
     for each intersection of the city street network.
     '''

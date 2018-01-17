@@ -1,13 +1,14 @@
+import requests
+
 url = 'http://openstreetcam.org/nearby-tracks'
 sequence_ids = []
 
 def getNearbytracks(lat, lng):
     '''
-    Takes lat and lng as strings and
-    returns nearby OSC tracks as a list
-    of sequence_ids.
+    This function takes a decimal degree latitude/longitude 
+    pair as two strings and returns nearby OpenStreetCam 
+    tracks as a list of sequence_ids.
     '''
-
     # form data to be sent to API
     data = {'lat': lat, 'lng': lng, 'distance': '5.0',
            'myTracks': 'false', 'filterUserNames': 'false'}
@@ -25,4 +26,5 @@ def getNearbytracks(lat, lng):
             sequence_ids.append(sequences[i]['sequence_id'])
     except:
         pass
+    
     return sequence_ids
