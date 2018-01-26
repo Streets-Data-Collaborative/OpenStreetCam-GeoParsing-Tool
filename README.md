@@ -8,13 +8,13 @@ Create an open-source tool that, given a city, give can pull each OpenStreetCam 
 Plan for a launch 1/22/18!
 
 #### Scripts
-getIntersection.py: Extracts a list of decimal degree coordinates for each intersection in a given city’s street network from OpenStreetMap. Using Geoff Boeing’s [OSMnx](https://github.com/gboeing/osmnx) Python package, the function generates a NetworkX graph within the administrative GIS boundary for that city before converting the graph nodes (intersections) into a geopandas GeoDataFrame.
+- `getIntersection.py`: Extracts a list of decimal degree coordinates for each intersection in a given city’s street network from OpenStreetMap. Using Geoff Boeing’s [OSMnx](https://github.com/gboeing/osmnx) Python package, the function generates a NetworkX graph within the administrative GIS boundary for that city before converting the graph nodes (intersections) into a geopandas GeoDataFrame.
 
-getNearbytracks.py: Transforms a single latitude-longitude point into a list of OpenStreetCam street segments within 5km along the street network. Using Kenneth Reitz's [Requests](http://docs.python-requests.org/en/master/) HTTP library, the function sends a POST request to the OSC API and stores the response object in JSON format before gathering any nearby sequence_ids.
+- `getNearbytracks.py`: Transforms a single latitude-longitude point into a list of OpenStreetCam street segments within 5km along the street network. Using Kenneth Reitz's [Requests](http://docs.python-requests.org/en/master/) HTTP library, the function sends a POST request to the OSC API and stores the response object in JSON format before gathering any nearby sequence_ids.
 
-getAlltracks.py: Generates the set of street segments for all intersections in a city. By storing OpenStreetCam sequence_ids as an unordered collection of unique elements, the function removes duplicates from the sequence of street segments being pulled in by getNearbytracks().
+- `getAlltracks.py`: Generates the set of street segments for all intersections in a city. By storing OpenStreetCam sequence_ids as an unordered collection of unique elements, the function removes duplicates from the sequence of street segments being pulled in by getNearbytracks().
 
-getTracksheet.py: Updates a Google Sheet with all OSM street segment identifiers (sequence_ids) for a given city. Using Anton Burnashev’s [gspread](https://gspread.readthedocs.io/en/latest/) module, the function uses OAuth2 credentials to authorize with the Google Drive API and writes to the spreadsheet by changing specific cells. To programmatically access your spreadsheet, you’ll need to create a service account from the Google API Console.
+- `getTracksheet.py`: Updates a Google Sheet with all OSM street segment identifiers (sequence_ids) for a given city. Using Anton Burnashev’s [gspread](https://gspread.readthedocs.io/en/latest/) module, the function uses OAuth2 credentials to authorize with the Google Drive API and writes to the spreadsheet by changing specific cells. To programmatically access your spreadsheet, you’ll need to create a service account from the Google API Console.
 
 
 ## Approach
