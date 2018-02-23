@@ -1,4 +1,5 @@
 import osmnx as ox
+import time
 import requests
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -22,8 +23,6 @@ def getIntersection(city, state, country):
     
     return nodes_list
 
-url = 'http://openstreetcam.org/nearby-tracks'
-sequence_ids = []
 
 def getNearbytracks(lat, lng):
     '''
@@ -31,6 +30,9 @@ def getNearbytracks(lat, lng):
     pair as two strings and returns nearby OpenStreetCam 
     tracks as a list of sequence_ids.
     '''
+    
+    url = 'https://openstreetcam.org/nearby-tracks'
+    
     # form data to be sent to API
     data = {'lat': lat, 'lng': lng, 'distance': '5.0',
            'myTracks': 'false', 'filterUserNames': 'false'}
@@ -42,13 +44,14 @@ def getNearbytracks(lat, lng):
     extract = r.json()
     
     # if nearby tracks exist, store them in a list
+    sequence_ids = []
     try:
         sequences = extract['osv']['sequences'] # indexes post request json with nearby tracks
         for i in range(len(sequences)): 
             sequence_ids.append(sequences[i]['sequence_id'])
     except:
         pass
-    
+
     return sequence_ids
 
 def getAlltracks(city, state, country):
@@ -63,24 +66,25 @@ def getAlltracks(city, state, country):
     city_sids = set()
     
     # loop through coordinates in city street network
-    for lat, lng in getIntersection(city, state, country):
-        tempTracks = getNearbytracks(lat, lng)
-        for x in tempTracks: city_sids.add(x)
+    
+    cnt = 0
+    for lng, lat in getIntersection(city, state, country):
+        try_again = True
+        while try_again == True:
+            try:
+                tempTracks = getNearbytracks(lat, lng)
+                cnt += 1
+                print cnt
+                for x in tempTracks:
+                    city_sids.add(x)
+                try_again = False
+            except Exception as e:
+                print(e)
+                try_again = True
+                time.sleep(5)
             
     return city_sids
 
-# requires a service account and OAuth2 credentials from the Google API Console
-# enable Google Drive API and download application data as a JSON keyfile
-keyfile = 'xxxxx_xxxx.json' ## replace with JSON keyfile name
-scope = ['https://spreadsheets.google.com/feeds']
-creds = ServiceAccountCredentials.from_json_keyfile_name(keyfile, scope)
-
-# creates a client to interact with the Google Drive API
-client = gspread.authorize(creds)
- 
-# finds a workbook by name and opens the first sheet
-workbook = 'XXXXXXXXX' ## replace with Google Sheets filename
-sheet = client.open(workbook).sheet1
 
 # print city track sequence IDs to SQUID Uploader
 def getTracksheet(city, state, country):
@@ -90,12 +94,28 @@ def getTracksheet(city, state, country):
     as a new record to a given Google Sheet.
     '''
     # store set of sequence_ids as list
-    tracklist = list(getAlltracks('Sand City', 'California', 'USA'))
+    tracklist = list(getAlltracks(city, state, country))
+    
+    # requires a service account and OAuth2 credentials from the Google API Console
+    # enable Google Drive API and download application data as a JSON keyfile
+    keyfile = 'XXXXX.json' ## replace with JSON keyfile name
+    scope = ['https://spreadsheets.google.com/feeds']
+    creds = ServiceAccountCredentials.from_json_keyfile_name(keyfile, scope)
+    
+    # creates a client to interact with the Google Drive API
+    client = gspread.authorize(creds)
+    
+    # finds a workbook by name and opens the first sheet
+    workbook = 'XXXXX' ## replace with Google Sheets filename
+    sheet = client.open(workbook).sheet1
+    
+    # get number of current records
+    first_empty_records_idx = len(sheet.get_all_values())
     
     # update Sheet with elements of sequence_id list
     for i in range(len(tracklist)):
-        sheet.update_cell(i+2, 1, tracklist[i])
+        sheet.update_cell(i+1+first_empty_records_idx, 1, tracklist[i])
         
     # update Sheet with city name for each sequence_id
     for i in range(len(tracklist)):
-        sheet.update_cell(i+2, 2, city)
+        sheet.update_cell(i+1+first_empty_records_idx, 2, city)
