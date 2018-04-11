@@ -1,5 +1,5 @@
 # OpenStreetCam-GeoParsing-Tool
-_Created by: Charlie Moffett ( charlie.moffett@nyu.edu )_
+_Created by: Charlie Moffett ( charlie.moffett@nyu.edu )_  
 _ARGO team lead: David Marulli ( david@argolabs.org )_
 
 
