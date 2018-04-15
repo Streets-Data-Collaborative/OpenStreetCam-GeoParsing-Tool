@@ -6,8 +6,6 @@ _ARGO team lead: David Marulli ( david@argolabs.org )_
 ## High-level Description
 Create an open-source tool that, given a city, give can pull each OpenStreetCam (OSM) Track file No. associated with that city. Building on existing open-source work (references to come), this will permit the creation ride quality maps of any location with OSM tracks. For a demo, see [here](https://demo.streetsdatacollaborative.org/commute/).
 
-Plan for a launch 1/22/18!
-
 #### Scripts
 - `getIntersection.py`: Extracts a list of decimal degree coordinates for each intersection in a given city’s street network from OpenStreetMap. Using Geoff Boeing’s [OSMnx](https://github.com/gboeing/osmnx) Python package, the function generates a NetworkX graph within the administrative GIS boundary for that city before converting the graph nodes (intersections) into a geopandas GeoDataFrame.
 
